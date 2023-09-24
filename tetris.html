@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id = "can"></canvas>
+
+  <script>
+    //ブロック１つのサイズ（ピクセル）
+    const BLOCK_SIZE = 30;
+    
+    let can = document.getElementById("can");
+    let con = can.getContext("2d");
+
+    con.fillStyle = "red";
+    con.fillRect(0,0,BLOCK_SIZE,BLOCK_SIZE);
+
+  </script>
+</body>
+</html>
