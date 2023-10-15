@@ -30,10 +30,10 @@
     let can = document.getElementById("can");
     let con = can.getContext("2d");
 
-    can.width        = SCREEN_W+200;
-    can.height       = SCREEN_H+50;
+    can.width        = SCREEN_W+120;
+    can.height       = SCREEN_H+20;
     can.style.border = "4px solid #555";
-    con.font = "40px MS ゴシック";
+    con.font = "20px MS ゴシック";
 
     const TETRO_COLORS = [
       "#000",     // 0空
@@ -130,8 +130,8 @@
     let speed = 0;
 
     //ゲームフィールドの位置
-    const OFFSET_X = 40;//(640-300)/2;
-    const OFFSET_Y = 20;
+    const OFFSET_X = 10;//(640-300)/2;
+    const OFFSET_Y = 10;
 
     //イニシャライズでスタート
     init();
@@ -242,20 +242,20 @@
       con.fillStyle="white";
 
       let s="NEXT";
-      con.fillText(s,250,70);
+      con.fillText(s,230,70);
 
       s="SCORE";
-      con.fillText(s,250,200);
+      con.fillText(s,230,200);
       s=""+score;
       w = con.measureText(s).width;
-      con.fillText(s, 390-w, 240);
+      con.fillText(s, 300-w, 240);
 
       s="LINES";
       w = con.measureText(s).width;
-      con.fillText(s,250,300);
+      con.fillText(s,230,300);
       s=""+lines;
       w = con.measureText(s).width;
-      con.fillText(s, 390-w, 340);
+      con.fillText(s, 300-w, 340);
 
       if (over)
       {   
