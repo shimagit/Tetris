@@ -214,8 +214,8 @@
         }
       }
 
-      drawCircle(50, 470, 35,"lightgreen");
-      drawCircle(190, 470, 35,"lightgreen");
+      drawCircle(40, 470, 35,"lightgreen");
+      drawCircle(165, 470, 35,"lightgreen");
       drawCircle(280, 470, 35,"lightgreen");
       drawCircle(280, 350, 35,"lightgreen");
 
@@ -474,7 +474,7 @@
 
 
     function mymouseup(e){
-      // keyCode2 = 0;
+      keyCode2 = 0;
       // ship.keyL = false;
       // ship.keyR = false;
       // ship.keyH = false;
@@ -484,27 +484,21 @@
         e.preventDefault() ;
         var mouseX = !isNaN(e.offsetX) ? e.offsetX : e.touches[0].clientX;
         var mouseY = !isNaN(e.offsetY) ? e.offsetY : e.touches[0].clientY;
-        // console.log ("first",keyCode2,mouseX,mouseY);
-        if (150 < mouseX && mouseX < 225 && 420 < mouseY) {
-          console.log("left",mouseX,mouseY);
+        if (mouseX < 80 && 420 < mouseY) {
           keyCode2 = 37;
             } else {
-              if(250 < mouseX && 420 < mouseY && 420 < mouseY) {
-                console.log("right",mouseX,mouseY);
+              if(240 < mouseX && 420 < mouseY && 420 < mouseY) {
                 keyCode2 = 39;
               } else {
                 if (250 < mouseX && 400 > mouseY ) {
-                  console.log("down",mouseX,mouseY);
                   keyCode2 = 40;
-                  console.log("down",mouseX,mouseY);
-                } 
+                } else {
+                  if (110 < mouseX && mouseX < 220 && 420 < mouseY ) {
+                    keyCode2 = 32;
+                  }
+                }
               }
             }
-        if (0 < mouseX && mouseX < 100 && 420 < mouseY ) {
-            keyCode2 = 32;
-            console.log("@"+mouseX);
-        }
-
         controle();
         drawCircle(mouseX, mouseY, 35,"red");
     }
