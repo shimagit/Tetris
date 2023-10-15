@@ -4,9 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #START {
+      position: absolute;
+      left: 60px;
+      top: 100px;
+    }
+  </style>
 </head>
 <body>
   <canvas id = "can"></canvas>
+  <img id="START" src="start.png" onclick="startGame()"><br/>
 
   <script>
 
@@ -35,7 +43,7 @@
     // maze.oncontextmenu = function (e) { e.preventDefault(); };
     can.addEventListener('touchstart', mymousedown);
     can.addEventListener('touchend', mymouseup);
-    //document.getElementById("START").style.display = "none";
+    document.getElementById("START").style.display=("block");
 
     can.width        = SCREEN_W+120;
     can.height       = SCREEN_H+120;
@@ -128,6 +136,7 @@
     //フィールドの中身
     let field = [];
 
+    let start = false;
     //ゲームオーバーフラグ
     let over = false;
     //消したライン数
@@ -136,13 +145,21 @@
     let score = 0;
     let speed = 0;
 
+    let countx = 0;
+
     //ゲームフィールドの位置
     const OFFSET_X = 10;//(640-300)/2;
     const OFFSET_Y = 10;
 
     //イニシャライズでスタート
-    init();
-
+    function startGame(){
+      document.getElementById("START").style.display=("none");
+      start = true;
+      setInterval( dropTetro, GAME_SPEED);
+    }
+    
+    init()
+    
     //初期化
     function init()
     {
@@ -161,7 +178,12 @@
       //テトロをセットして描画して開始！
       setTetro();
       drawAll();
-      setInterval( dropTetro, GAME_SPEED-speed);
+      console.log(start);
+      // if(start){
+      //   setInterval( dropTetro, GAME_SPEED-speed);
+      //   console.log("yesyesyes");
+      //   countx++;
+      // }
       let keyCode2 = 0;
     }
 
@@ -189,10 +211,7 @@
         px,py,          BLOCK_SIZE,BLOCK_SIZE);
     }
 
-    //全部描画する
-    function drawAll()
-    {
-      //背景を描画
+    function drawBack(){
       con.drawImage(bgimage,0,0,800,1200);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
@@ -201,6 +220,26 @@
       con.strokeRect(OFFSET_X-2,OFFSET_Y-2,SCREEN_W+4,SCREEN_H+4);
       con.fillStyle="rgba(0,0,0,0.4)";
       con.fillRect(OFFSET_X,OFFSET_Y,SCREEN_W,SCREEN_H);
+
+      drawCircle(40, 470, 35,"lightgreen");
+      drawCircle(165, 470, 35,"lightgreen");
+      drawCircle(280, 470, 35,"lightgreen");
+      drawCircle(280, 350, 35,"lightgreen");
+    }
+
+    //全部描画する
+    function drawAll()
+    {
+      drawBack();
+      //背景を描画
+      // con.drawImage(bgimage,0,0,800,1200);
+      // //フィールドの枠を描く
+      // con.strokeStyle="rgba(80,160,255,0.1)";
+      // con.strokeRect(OFFSET_X-6,OFFSET_Y-6,SCREEN_W+12,SCREEN_H+12);
+      // con.strokeStyle="rgba(80,160,255,0.5)";
+      // con.strokeRect(OFFSET_X-2,OFFSET_Y-2,SCREEN_W+4,SCREEN_H+4);
+      // con.fillStyle="rgba(0,0,0,0.4)";
+      // con.fillRect(OFFSET_X,OFFSET_Y,SCREEN_W,SCREEN_H);
 
       //フィールドを描画
       for (let y = 0; y < FIELD_ROW; y++)
@@ -214,10 +253,10 @@
         }
       }
 
-      drawCircle(40, 470, 35,"lightgreen");
-      drawCircle(165, 470, 35,"lightgreen");
-      drawCircle(280, 470, 35,"lightgreen");
-      drawCircle(280, 350, 35,"lightgreen");
+      // drawCircle(40, 470, 35,"lightgreen");
+      // drawCircle(165, 470, 35,"lightgreen");
+      // drawCircle(280, 470, 35,"lightgreen");
+      // drawCircle(280, 350, 35,"lightgreen");
 
 
       //着地点を計算
@@ -252,7 +291,7 @@
     function drawInfo()
     {
       let w;
-      con.fillStyle="white";
+      con.fillStyle="yellow";
 
       let s="NEXT";
       con.fillText(s,230,65);
@@ -269,6 +308,13 @@
       s=""+lines;
       w = con.measureText(s).width;
       con.fillText(s, 300-w, 230);
+
+      s="speed";
+      w = con.measureText(s).width;
+      con.fillText(s,230,260);
+      s=""+GAME_SPEED+speed;
+      w = con.measureText(s).width;
+      con.fillText(s, 300-w, 280);
 
       if (over)
       {   
@@ -378,7 +424,8 @@
         se3.play();
         lines +=   linec;
         score+=100* (2**(linec-1));
-        if(speed<GAME_SPEED-10)speed+=10;
+        if(speed<GAME_SPEED-10)speed+=0;
+        setInterval( dropTetro, GAME_SPEED-speed);
       }
     }
 
@@ -400,44 +447,12 @@
         // tetro_y = START_Y;
         if ( !checkMove(0,0) )over=true;
       }
-
       drawAll();
     }
 
-
-    //キーボードが押された時の処理
-    // document.onkeydown = function(e)
-    // {
-    //   if (over) return;
-    //   switch( e.keyCode)
-    //   {
-    //     case 37:// 左
-    //         if ( checkMove( -1,  0 ))tetro_x--;
-    //         break;
-    //     case 38:// 上
-    //         //if ( checkMove(  0, -1 ))tetro_y--;
-    //         break;
-    //     case 39:// 右
-    //         if ( checkMove(  1,  0 ))tetro_x++;
-    //         break;
-    //     case 40:// 下
-    //         while( checkMove(0,  1 ))tetro_y++;
-    //         break;
-    //     case 32:// スペース
-    //         let ntetro = rotate();
-    //         if ( checkMove( 0, 0, ntetro))
-    //         {
-    //           se2.pause();
-    //           se2.play();
-    //           tetro = ntetro;
-    //         }
-    //         break;
-    //     }
-    //     drawAll();
-    // }
     function controle()
     {
-      switch( keyCode2)
+      switch(keyCode2)
       {
         case 37:// 左
             if ( checkMove( -1,  0 ))tetro_x--;
