@@ -7,14 +7,21 @@
   <style>
     #START {
       position: absolute;
-      left: 60px;
+      left: 15px;
       top: 100px;
+    }
+    #RETRY {
+      position: absolute;
+      left: 45px;
+      top: 200px;
+      display: none;
     }
   </style>
 </head>
 <body>
   <canvas id = "can"></canvas>
   <img id="START" src="start.png" onclick="startGame()"><br/>
+  <img id="RETRY" src="retry02.png" onclick="startGame()"><br/>
 
   <script>
 
@@ -146,6 +153,7 @@
     let speed = 0;
 
     let countx = 0;
+    let keyCode2 = 0;
 
     //ゲームフィールドの位置
     const OFFSET_X = 10;//(640-300)/2;
@@ -154,7 +162,9 @@
     //イニシャライズでスタート
     function startGame(){
       document.getElementById("START").style.display=("none");
+      document.getElementById("RETRY").style.display=("none");
       start = true;
+      over = false;
       setInterval( dropTetro, GAME_SPEED);
     }
     
@@ -174,17 +184,19 @@
 
       //最初のテトロのためネクストに入れる
       tetro_n = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
+      tetro_n = 5;
 
       //テトロをセットして描画して開始！
       setTetro();
       drawAll();
-      console.log(start);
+   
+
       // if(start){
       //   setInterval( dropTetro, GAME_SPEED-speed);
       //   console.log("yesyesyes");
       //   countx++;
       // }
-      let keyCode2 = 0;
+      // let keyCode2 = 0;
     }
 
     //テトロをネクストで初期化
@@ -193,7 +205,8 @@
       //ネクストを現在のテトロにする
       tetro_t = tetro_n;
       tetro = TETRO_TYPES[tetro_t];
-      tetro_n = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
+      // tetro_n = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
+      tetro_n = 5;
 
       //位置を初期値にする
       tetro_x = START_X;
@@ -312,7 +325,7 @@
       s="speed";
       w = con.measureText(s).width;
       con.fillText(s,230,260);
-      s=""+GAME_SPEED+speed;
+      s=""+GAME_SPEED-speed;
       w = con.measureText(s).width;
       con.fillText(s, 300-w, 280);
 
@@ -328,6 +341,10 @@
         con.fillText(s,OFFSET_X+x,y); 
         // con.font = "40px MS ゴシック";
         // let w = con.measureText(s).width;
+        clearInterval()
+        document.getElementById("RETRY").style.display=("block");
+        init();
+
       }
     }
 
@@ -424,8 +441,11 @@
         se3.play();
         lines +=   linec;
         score+=100* (2**(linec-1));
-        if(speed<GAME_SPEED-10)speed+=0;
-        setInterval( dropTetro, GAME_SPEED-speed);
+        // if(speed<GAME_SPEED-10)speed+=10;
+        speed+=1000;
+        setInterval( dropTetro, GAME_SPEED+speed);
+        // setInterval( dropTetro, 300);
+        console.log(GAME_SPEED+speed);
       }
     }
 
