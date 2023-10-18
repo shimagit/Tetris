@@ -22,6 +22,7 @@
   <canvas id = "can"></canvas>
   <img id="START" src="start.png" onclick="startGame()"><br/>
   <img id="RETRY" src="retry02.png" onclick="startGame()"><br/>
+  <!-- <img id="BGIMG" src="bgimage.jpeg" onclick="startGame()"><br/> -->
 
   <script>
 
@@ -55,7 +56,7 @@
     can.width        = SCREEN_W+120;
     can.height       = SCREEN_H+120;
     can.style.border = "4px solid #555";
-    con.font = "20px MS ゴシック";
+    con.font = "bold 20px MS ゴシック";
 
     const TETRO_COLORS = [
       "#000",     // 0空
@@ -225,7 +226,7 @@
     }
 
     function drawBack(){
-      con.drawImage(bgimage,0,0,800,1200);
+      con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
       con.strokeRect(OFFSET_X-6,OFFSET_Y-6,SCREEN_W+12,SCREEN_H+12);
@@ -304,7 +305,7 @@
     function drawInfo()
     {
       let w;
-      con.fillStyle="yellow";
+      con.fillStyle="darkblue";
 
       let s="NEXT";
       con.fillText(s,230,65);
@@ -328,6 +329,18 @@
       s=""+GAME_SPEED-speed;
       w = con.measureText(s).width;
       con.fillText(s, 300-w, 280);
+
+      con.fillText("<<",28,465);
+      con.fillText("Left",18,485);
+
+      con.fillText(">>",270,465);
+      con.fillText("Right",250,485);
+
+      con.fillText("◎",155,465);
+      con.fillText("Turn",140,485);
+
+      con.fillText("▽",270,345);
+      con.fillText("Drop",252,365);
 
       if (over)
       {   
