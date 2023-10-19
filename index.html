@@ -27,7 +27,10 @@
   <script>
 
     //落ちるスピード
-    const GAME_SPEED = 300;
+    let GAME_SPEED = 500;
+    let iv_id = setInterval(dropTetro,500);
+    clearInterval(iv_id);
+
 
     //フィールドサイズ
     const FIELD_COL = 10;
@@ -159,14 +162,34 @@
     //ゲームフィールドの位置
     const OFFSET_X = 10;//(640-300)/2;
     const OFFSET_Y = 10;
+    
+    function play() {
+      console.log("IN :",iv_id)
+      if(iv_id) {
+        clearInterval(iv_id);
+      }
+      clearInterval(iv_id);
+      console.log("MID:",iv_id);
+      iv_id = setInterval(dropTetro,GAME_SPEED-speed);
+      console.log("OUT:",iv_id)
+
+    }
+
+
 
     //イニシャライズでスタート
     function startGame(){
+      init();
       document.getElementById("START").style.display=("none");
       document.getElementById("RETRY").style.display=("none");
       start = true;
       over = false;
-      setInterval( dropTetro, GAME_SPEED);
+      speed = 0;
+      play();
+      // let gs2 = setInterval(dropTetro,500);
+      // clearInterval(gs);
+      // setInterval( gs, GAME_SPEED);
+      // console.log( "aaa: "+gs );
     }
     
     init()
@@ -174,6 +197,7 @@
     //初期化
     function init()
     {
+      speed = 0;
       for (let y = 0; y < FIELD_ROW; y++)
       {
         field[y] = [];
@@ -354,10 +378,11 @@
         con.fillText(s,OFFSET_X+x,y); 
         // con.font = "40px MS ゴシック";
         // let w = con.measureText(s).width;
-        clearInterval()
+        GAME_SPEED = 500;
+        clearInterval(iv_id);
         document.getElementById("RETRY").style.display=("block");
-        init();
-
+        // init();
+        console.log(iv_id);
       }
     }
 
@@ -454,11 +479,13 @@
         se3.play();
         lines +=   linec;
         score+=100* (2**(linec-1));
-        // if(speed<GAME_SPEED-10)speed+=10;
-        speed+=1000;
-        setInterval( dropTetro, GAME_SPEED+speed);
+        // clearInterval( dropTetro);
+        if(speed<GAME_SPEED-10)speed+=10;
+        // speed+=1000;
+        // setInterval( dropTetro, GAME_SPEED+speed);
         // setInterval( dropTetro, 300);
-        console.log(GAME_SPEED+speed);
+        play();
+        console.log(iv_id);
       }
     }
 
