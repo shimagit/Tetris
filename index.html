@@ -26,11 +26,13 @@
 
   <script>
 
-    //落ちるスピード
-    let GAME_SPEED = 500;
-    let iv_id = setInterval(dropTetro,500);
-    clearInterval(iv_id);
+    //`音量設定
+    let soundVolume = 0.5;
 
+    //落ちるスピード
+    let cycleCount = 0;
+    let cycleCountMax = 100; 
+    let GAME_SPEED = 5;
 
     //フィールドサイズ
     const FIELD_COL = 10;
@@ -123,13 +125,17 @@
     let bgimage;
     bgimage = new Image();
     bgimage.src = "bgimage.jpeg";
-    let blImage;
+    let blImage; 
     blImage = new Image();
     blImage.src = "blocks2.png";
     let se1,se2,se3;
     se1 = new Audio("se1.wav");
     se2 = new Audio("se2.wav");
     se3 = new Audio("se3.wav");
+
+    se1.volume = soundVolume;
+    se2.volume = soundVolume;
+    se3.volume = soundVolume;
 
     //初期位置
     const START_X = FIELD_COL/2 - TETRO_SIZE/2;
@@ -163,17 +169,17 @@
     const OFFSET_X = 10;//(640-300)/2;
     const OFFSET_Y = 10;
     
-    function play() {
-      console.log("IN :",iv_id)
-      if(iv_id) {
-        clearInterval(iv_id);
-      }
-      clearInterval(iv_id);
-      console.log("MID:",iv_id);
-      iv_id = setInterval(dropTetro,GAME_SPEED-speed);
-      console.log("OUT:",iv_id)
+    // function play() {
+    //   console.log("IN :",iv_id)
+    //   if(iv_id) {
+    //     clearInterval(iv_id);
+    //   }
+    //   clearInterval(iv_id);
+    //   console.log("MID:",iv_id);
+    //   iv_id = setInterval(dropTetro,GAME_SPEED-speed);
+    //   console.log("OUT:",iv_id)
 
-    }
+    // }
 
 
 
@@ -185,8 +191,8 @@
       start = true;
       over = false;
       speed = 0;
-      play();
-      // let gs2 = setInterval(dropTetro,500);
+      // play();
+      setInterval(dropTetro,GAME_SPEED);
       // clearInterval(gs);
       // setInterval( gs, GAME_SPEED);
       // console.log( "aaa: "+gs );
@@ -350,7 +356,7 @@
       s="speed";
       w = con.measureText(s).width;
       con.fillText(s,230,260);
-      s=""+GAME_SPEED-speed;
+      s=""+cycleCountMax;
       w = con.measureText(s).width;
       con.fillText(s, 300-w, 280);
 
@@ -379,10 +385,11 @@
         // con.font = "40px MS ゴシック";
         // let w = con.measureText(s).width;
         GAME_SPEED = 500;
-        clearInterval(iv_id);
+        cycleCountMax = 100;
+        clearInterval(dropTetro);
         document.getElementById("RETRY").style.display=("block");
         // init();
-        console.log(iv_id);
+        console.log("end");
       }
     }
 
@@ -480,18 +487,25 @@
         lines +=   linec;
         score+=100* (2**(linec-1));
         // clearInterval( dropTetro);
-        if(speed<GAME_SPEED-10)speed+=10;
+        // if(speed<GAME_SPEED-10)speed+=10;
+        if(cycleCountMax >= 10)cycleCountMax-=10;
         // speed+=1000;
         // setInterval( dropTetro, GAME_SPEED+speed);
         // setInterval( dropTetro, 300);
-        play();
-        console.log(iv_id);
+        // play();
+        // console.log(iv_id);
       }
     }
 
     //ブロックの落ちる処理
     function dropTetro()
-    {
+      {
+      cycleCount += 1;
+      if (cycleCount < cycleCountMax ) {
+        return;
+      }
+      cycleCount = 0;
+    
       if (over) return;
 
       if ( checkMove(  0,  1 ))tetro_y++;
