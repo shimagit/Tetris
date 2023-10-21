@@ -27,7 +27,7 @@
   <script>
 
     //`音量設定
-    let soundVolume = 0.2;
+    let soundVolume = 0.5;
 
     //落ちるスピード
     let cycleCount = 0;
@@ -61,7 +61,6 @@
     can.onmouseup = mymouseup;
     can.addEventListener('touchstart', mymousedown);
     can.addEventListener('touchend', mymouseup);
-    // document.getElementById("START").style.display=("block");
 
     // テトロミノ本体定義
     const TETRO_TYPES = [
@@ -122,9 +121,11 @@
     se1 = new Audio("se1.wav");
     se2 = new Audio("se2.wav");
     se3 = new Audio("se3.wav");
+    se4 = new Audio("Tetris_bgm.mp3");
     se1.volume = soundVolume;
     se2.volume = soundVolume / 10;
     se3.volume = soundVolume;
+    se4.volume = soundVolume;
     se1.playbackRate = 10;
     se2.playbackRate = 10;
     se3.playbackRate = 10;
@@ -152,7 +153,6 @@
     let lines = 0;
     //スコア
     let score = 0;
-    let speed = 0;
 
     let countx = 0;
     let keyCode2 = 0;
@@ -163,11 +163,12 @@
 
     //イニシャライズでスタート
     function startGame(){
+      se4.play();
+      se4.loop = true;
       init();
       document.getElementById("START").style.display=("none");
       document.getElementById("RETRY").style.display=("none");
       over = false;
-      speed = 0;
       setInterval(dropTetro,GAME_SPEED);
     }
     
@@ -176,7 +177,7 @@
     //初期化
     function init()
     {
-      speed = 0;
+      se4.loop = true;
       for (let y = 0; y < FIELD_ROW; y++)
       {
         field[y] = [];
@@ -223,6 +224,8 @@
     //全部描画する
     function drawAll()
     {
+      se4.play();
+      se4.loop = true;
       con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
@@ -272,7 +275,6 @@
           }
         }
       }
-
       drawInfo();
     }
 
@@ -319,7 +321,9 @@
 
       //ゲームオーバー処理
       if (over)
-      {   
+      { 
+        se4.pause();
+        se4.loop = false;  
         s ="GAME OVER";
         w = con.measureText(s).width;
         let x = SCREEN_W/2 - w/2;
@@ -528,7 +532,7 @@
     con.beginPath();
     con.arc(x, y, r, 0, Math.PI*2);
     con.fill();
-}
+    }
 
     
   </script>
