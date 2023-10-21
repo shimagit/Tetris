@@ -123,8 +123,12 @@
     se2 = new Audio("se2.wav");
     se3 = new Audio("se3.wav");
     se1.volume = soundVolume;
-    se2.volume = soundVolume;
+    se2.volume = soundVolume / 10;
     se3.volume = soundVolume;
+    se1.playbackRate = 10;
+    se2.playbackRate = 10;
+    se3.playbackRate = 10;
+
 
     //初期位置
     const START_X = FIELD_COL/2 - TETRO_SIZE/2;
