@@ -27,7 +27,7 @@
   <script>
 
     //`音量設定
-    let soundVolume = 0.5;
+    let soundVolume = 0.2;
 
     //落ちるスピード
     let cycleCount = 0;
@@ -156,7 +156,7 @@
     //ゲームフィールドの位置
     const OFFSET_X = 10;//(640-300)/2;
     const OFFSET_Y = 10;
-    
+
     //イニシャライズでスタート
     function startGame(){
       init();
@@ -167,7 +167,7 @@
       setInterval(dropTetro,GAME_SPEED);
     }
     
-    init()
+    init();
     
     //初期化
     function init()
@@ -184,19 +184,11 @@
 
       //最初のテトロのためネクストに入れる
       tetro_n = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
-      tetro_n = 5;
+      // tetro_n = 5;
 
       //テトロをセットして描画して開始！
       setTetro();
       drawAll();
-   
-
-      // if(start){
-      //   setInterval( dropTetro, GAME_SPEED-speed);
-      //   console.log("yesyesyes");
-      //   countx++;
-      // }
-      // let keyCode2 = 0;
     }
 
     //テトロをネクストで初期化
@@ -205,8 +197,8 @@
       //ネクストを現在のテトロにする
       tetro_t = tetro_n;
       tetro = TETRO_TYPES[tetro_t];
-      // tetro_n = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
-      tetro_n = 5;
+      tetro_n = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
+      // tetro_n = 5;
 
       //位置を初期値にする
       tetro_x = START_X;
@@ -224,7 +216,9 @@
         px,py,          BLOCK_SIZE,BLOCK_SIZE);
     }
 
-    function drawBack(){
+    //全部描画する
+    function drawAll()
+    {
       con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
@@ -233,27 +227,11 @@
       con.strokeRect(OFFSET_X-2,OFFSET_Y-2,SCREEN_W+4,SCREEN_H+4);
       con.fillStyle="rgba(0,0,0,0.4)";
       con.fillRect(OFFSET_X,OFFSET_Y,SCREEN_W,SCREEN_H);
-
-      drawCircle(40, 470, 35,"lightgreen");
+      drawCircle( 40, 470, 35,"lightgreen");
       drawCircle(165, 470, 35,"lightgreen");
       drawCircle(280, 470, 35,"lightgreen");
       drawCircle(280, 350, 35,"lightgreen");
-    }
-
-    //全部描画する
-    function drawAll()
-    {
-      drawBack();
-      //背景を描画
-      // con.drawImage(bgimage,0,0,800,1200);
-      // //フィールドの枠を描く
-      // con.strokeStyle="rgba(80,160,255,0.1)";
-      // con.strokeRect(OFFSET_X-6,OFFSET_Y-6,SCREEN_W+12,SCREEN_H+12);
-      // con.strokeStyle="rgba(80,160,255,0.5)";
-      // con.strokeRect(OFFSET_X-2,OFFSET_Y-2,SCREEN_W+4,SCREEN_H+4);
-      // con.fillStyle="rgba(0,0,0,0.4)";
-      // con.fillRect(OFFSET_X,OFFSET_Y,SCREEN_W,SCREEN_H);
-
+      
       //フィールドを描画
       for (let y = 0; y < FIELD_ROW; y++)
       {
@@ -265,12 +243,6 @@
           }
         }
       }
-
-      // drawCircle(40, 470, 35,"lightgreen");
-      // drawCircle(165, 470, 35,"lightgreen");
-      // drawCircle(280, 470, 35,"lightgreen");
-      // drawCircle(280, 350, 35,"lightgreen");
-
 
       //着地点を計算
       let plus=0;
@@ -341,6 +313,7 @@
       con.fillText("▽",270,345);
       con.fillText("Drop",252,365);
 
+      //ゲームオーバー処理
       if (over)
       {   
         s ="GAME OVER";
@@ -351,14 +324,10 @@
         con.strokeText(s,OFFSET_X+x,y);
         con.fillStyle="white";
         con.fillText(s,OFFSET_X+x,y); 
-        // con.font = "40px MS ゴシック";
-        // let w = con.measureText(s).width;
         GAME_SPEED = 500;
         cycleCountMax = 100;
         clearInterval(dropTetro);
         document.getElementById("RETRY").style.display=("block");
-        // init();
-        console.log("end");
       }
     }
 
@@ -455,43 +424,33 @@
         se3.play();
         lines +=   linec;
         score+=100* (2**(linec-1));
-        // clearInterval( dropTetro);
-        // if(speed<GAME_SPEED-10)speed+=10;
-        if(cycleCountMax >= 10)cycleCountMax-=10;
-        // speed+=1000;
-        // setInterval( dropTetro, GAME_SPEED+speed);
-        // setInterval( dropTetro, 300);
-        // play();
-        // console.log(iv_id);
+        if(cycleCountMax >= 10)cycleCountMax-=1;
       }
     }
 
     //ブロックの落ちる処理
     function dropTetro()
       {
-      cycleCount += 1;
-      if (cycleCount < cycleCountMax ) {
-        return;
-      }
-      cycleCount = 0;
+        //落下速度調整
+        cycleCount += 1;
+        if ( cycleCount < cycleCountMax ) return;
+        
+        cycleCount = 0;
     
-      if (over) return;
+        if (over) return;
 
-      if ( checkMove(  0,  1 ))tetro_y++;
-      else
-      {
-        se1.play();
-        fixTetro();
-        checkLine();
-        setTetro();
-        // tetro_t = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
-        // tetro = TETRO_TYPES[tetro_t];
-        // tetro_x = START_X;
-        // tetro_y = START_Y;
-        if ( !checkMove(0,0) )over=true;
+        //落下可能か判断
+        if ( checkMove(  0,  1 )) {
+          tetro_y++;
+          } else {
+            se1.play();
+            fixTetro();
+            checkLine();
+            setTetro();
+            if ( !checkMove(0,0) )over=true;
+          }
+          drawAll();
       }
-      drawAll();
-    }
 
     function controle()
     {
@@ -530,14 +489,12 @@
       controle();
     }
 
-
+    //マウスのクリックボタンを離した時の処理
     function mymouseup(e){
       keyCode2 = 0;
-      // ship.keyL = false;
-      // ship.keyR = false;
-      // ship.keyH = false;
     } 
 
+    //マウスのクリックボタンを押した時の処理
     function mymousedown(e) {
         e.preventDefault() ;
         var mouseX = !isNaN(e.offsetX) ? e.offsetX : e.touches[0].clientX;
@@ -561,6 +518,7 @@
         drawCircle(mouseX, mouseY, 35,"red");
     }
 
+    //円を描く
     function drawCircle(x, y, r, color){
     con.fillStyle = color;
     con.beginPath();
