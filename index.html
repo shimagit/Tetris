@@ -27,7 +27,7 @@
   <script>
 
     //`音量設定
-    let soundVolume = 0.5;
+    let soundVolume = 0.2;
 
     //落ちるスピード
     let cycleCount = 0;
@@ -118,18 +118,19 @@
     blImage.src = "blocks2.png";
     
     //効果音設定
-    se1 = new Audio("se1.wav");
-    se2 = new Audio("se2.wav");
-    se3 = new Audio("se3.wav");
+    se1 = new Audio("se1.wav"); //落下
+    se2 = new Audio("se2.wav"); //回転
+    se3 = new Audio("se3.wav"); //消した時
     se4 = new Audio("Tetris_bgm.mp3");
-    se1.volume = soundVolume;
-    se2.volume = soundVolume / 10;
-    se3.volume = soundVolume;
-    se4.volume = soundVolume;
+    se5 = new Audio("gameover.mp3");
+    se1.volume = soundVolume * 4;
+    se2.volume = soundVolume / 5;
+    se3.volume = soundVolume * 4;
+    se4.volume = soundVolume / 4;
+    se5.volume = soundVolume / 3;
     se1.playbackRate = 10;
     se2.playbackRate = 10;
     se3.playbackRate = 10;
-
 
     //初期位置
     const START_X = FIELD_COL/2 - TETRO_SIZE/2;
@@ -163,8 +164,6 @@
 
     //イニシャライズでスタート
     function startGame(){
-      se4.play();
-      se4.loop = true;
       init();
       document.getElementById("START").style.display=("none");
       document.getElementById("RETRY").style.display=("none");
@@ -173,11 +172,11 @@
     }
     
     init();
+
     
     //初期化
     function init()
     {
-      se4.loop = true;
       for (let y = 0; y < FIELD_ROW; y++)
       {
         field[y] = [];
@@ -194,6 +193,11 @@
       //テトロをセットして描画して開始！
       setTetro();
       drawAll();
+      se5.pause();
+      se5.currentTime = 0;
+      se4.currentTime = 0;
+      se4.play();
+      se4.loop = true;
     }
 
     //テトロをネクストで初期化
@@ -224,8 +228,6 @@
     //全部描画する
     function drawAll()
     {
-      se4.play();
-      se4.loop = true;
       con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
@@ -324,6 +326,7 @@
       { 
         se4.pause();
         se4.loop = false;  
+        se5.play();
         s ="GAME OVER";
         w = con.measureText(s).width;
         let x = SCREEN_W/2 - w/2;
