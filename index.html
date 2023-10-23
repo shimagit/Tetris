@@ -502,11 +502,13 @@
 
     //マウスのクリックボタンを離した時の処理
     function mymouseup(e){
+      if (over) return;
       keyCode2 = 0;
     } 
 
     //マウスのクリックボタンを押した時の処理
     function mymousedown(e) {
+      if (over) return;
         e.preventDefault() ;
         var mouseX = !isNaN(e.offsetX) ? e.offsetX : e.touches[0].clientX;
         var mouseY = !isNaN(e.offsetY) ? e.offsetY : e.touches[0].clientY;
