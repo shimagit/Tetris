@@ -126,11 +126,11 @@
     se1.volume = soundVolume * 4;
     se2.volume = soundVolume / 5;
     se3.volume = soundVolume * 4;
-    se4.volume = soundVolume / 4;
-    se5.volume = soundVolume / 3;
-    se1.playbackRate = 10;
+    se4.volume = soundVolume / 5;
+    se5.volume = soundVolume / 5;
+    se1.playbackRate = 5;
     se2.playbackRate = 10;
-    se3.playbackRate = 10;
+    se3.playbackRate = 2;
 
     //初期位置
     const START_X = FIELD_COL/2 - TETRO_SIZE/2;
@@ -168,10 +168,17 @@
       document.getElementById("START").style.display=("none");
       document.getElementById("RETRY").style.display=("none");
       over = false;
+      se4.currentTime = 0;
+      se4.play();
       setInterval(dropTetro,GAME_SPEED);
     }
     
     init();
+
+    if(over){
+      se4.pause();
+      se5.pause();
+    }
 
     
     //初期化
@@ -196,7 +203,7 @@
       se5.pause();
       se5.currentTime = 0;
       se4.currentTime = 0;
-      se4.play();
+      se4.pause();
       se4.loop = true;
     }
 
