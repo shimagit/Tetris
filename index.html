@@ -243,10 +243,10 @@
       con.strokeRect(OFFSET_X-2,OFFSET_Y-2,SCREEN_W+4,SCREEN_H+4);
       con.fillStyle="rgba(0,0,0,0.4)";
       con.fillRect(OFFSET_X,OFFSET_Y,SCREEN_W,SCREEN_H);
-      drawCircle( 40, 470, 35,"lightgreen");
-      drawCircle(165, 470, 35,"lightgreen");
-      drawCircle(280, 470, 35,"lightgreen");
-      drawCircle(280, 350, 35,"lightgreen");
+      drawCircle( 40, 380, 35,"lightgreen");
+      drawCircle(140, 380, 35,"lightgreen");
+      drawCircle(240, 380, 35,"lightgreen");
+      drawCircle(240, 270, 35,"lightgreen");
       
       //フィールドを描画
       for (let y = 0; y < FIELD_ROW; y++)
@@ -294,39 +294,39 @@
       con.fillStyle="darkblue";
 
       let s="NEXT";
-      con.fillText(s,230,65);
+      con.fillText(s,190,65);
 
       s="SCORE";
-      con.fillText(s,230,160);
+      con.fillText(s,190,160);
       s=""+score;
       w = con.measureText(s).width;
-      con.fillText(s, 300-w, 180);
+      con.fillText(s, 260-w, 180);
 
       s="LINES";
       w = con.measureText(s).width;
-      con.fillText(s,230,210);
+      con.fillText(s,190,210);
       s=""+lines;
       w = con.measureText(s).width;
       con.fillText(s, 300-w, 230);
 
-      s="speed";
-      w = con.measureText(s).width;
-      con.fillText(s,230,260);
-      s=""+cycleCountMax;
-      w = con.measureText(s).width;
-      con.fillText(s, 300-w, 280);
+      // s="speed";
+      // w = con.measureText(s).width;
+      // con.fillText(s,230,260);
+      // s=""+cycleCountMax;
+      // w = con.measureText(s).width;
+      // con.fillText(s, 300-w, 280);
 
-      con.fillText("<<",28,465);
-      con.fillText("Left",18,485);
+      con.fillText("<<",28,375);
+      con.fillText("Left",18,395);
 
-      con.fillText(">>",270,465);
-      con.fillText("Right",250,485);
+      con.fillText(">>",230,375);
+      con.fillText("Right",213,395);
 
-      con.fillText("◎",155,465);
-      con.fillText("Turn",140,485);
+      con.fillText("◎",130,375);
+      con.fillText("Turn",115,395);
 
-      con.fillText("▽",270,345);
-      con.fillText("Drop",252,365);
+      con.fillText("▽",230,265);
+      con.fillText("Drop",215,285);
 
       //ゲームオーバー処理
       if (over)
@@ -515,20 +515,25 @@
 
     //マウスのクリックボタンを押した時の処理
     function mymousedown(e) {
+      e.preventDefault() ;
+        var mouseX = !isNaN(e.offsetX) ? e.offsetX : e.touches[0].clientX;
+        var mouseY = !isNaN(e.offsetY) ? e.offsetY : e.touches[0].clientY;
+        console.log(mouseX);
+
       if (over) return;
         e.preventDefault() ;
         var mouseX = !isNaN(e.offsetX) ? e.offsetX : e.touches[0].clientX;
         var mouseY = !isNaN(e.offsetY) ? e.offsetY : e.touches[0].clientY;
-        if (mouseX < 80 && 420 < mouseY) {
+        if (mouseX < 80 && 330 < mouseY) {
           keyCode2 = 37;
             } else {
-              if(240 < mouseX && 420 < mouseY && 420 < mouseY) {
+              if(190 < mouseX && 330 < mouseY && 330 < mouseY) {
                 keyCode2 = 39;
               } else {
-                if (250 < mouseX && 400 > mouseY ) {
+                if (190 < mouseX && 310 > mouseY ) {
                   keyCode2 = 40;
                 } else {
-                  if (110 < mouseX && mouseX < 220 && 420 < mouseY ) {
+                  if (90 < mouseX && mouseX < 180 && 330 < mouseY ) {
                     keyCode2 = 32;
                   }
                 }
