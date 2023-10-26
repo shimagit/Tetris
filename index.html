@@ -39,7 +39,7 @@
     const FIELD_ROW = 20;
 
     //ブロック１つのサイズ（ピクセル）
-    const BLOCK_SIZE = 20;
+    const BLOCK_SIZE = 16; // 20;
 
     //キャンバスサイズ
     const SCREEN_W = BLOCK_SIZE * FIELD_COL;
@@ -115,7 +115,7 @@
     bgimage.src = "bgimage.jpeg";
     let blImage; 
     blImage = new Image();
-    blImage.src = "blocks2.png";
+    blImage.src = "bl_16.png";
     
     //効果音設定
     se1 = new Audio("se1.wav"); //落下
