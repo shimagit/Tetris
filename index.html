@@ -16,14 +16,47 @@
       top: 200px;
       display: none;
     }
+    body{
+  margin: 0;
+  padding: 0;
+}
+
+/* 全画面表示CSS */
+
+canvas {
+  width: 100vw; /* 全画面表示 */
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+    /* p {
+    color:red;
+    }
+    document.body.requestFullscreen();
+    @media screen and (min-width:580px) {  */
+        /*　画面サイズが480pxからはここを読み込む　*/
+				/* document.exitFullscreen(); */
+
+    /* p { color:#ededed;}
+    }
+    @media screen and (min-width:768px) and ( max-width:1024px) {
+        　画面サイズが768pxから1024pxまではここを読み込む　
+    p {}
+    }
+    @media screen and (min-width:1024px) {
+        /*　画面サイズが1024pxからはここを読み込む　*/
+/*     
+    /* } */
+
   </style>
 </head>
 <body>
+  
   <canvas id = "can"></canvas>
   <img id="START" src="start.png" onclick="startGame()"><br/>
   <img id="RETRY" src="retry02.png" onclick="startGame()"><br/>
   <!-- <img id="BGIMG" src="bgimage.jpeg" onclick="startGame()"><br/> -->
-
   <script>
 
     //`音量設定
