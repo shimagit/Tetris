@@ -268,7 +268,7 @@ body::-webkit-scrollbar {
     function drawBlock(x,y,c)
     {
       let px = OFFSET_X + x * BLOCK_SIZE;
-      let py = OFFSET_Y + y * BLOCK_SIZE;
+      let py = OFFSET_Y + y * BLOCK_SIZE + 48;
 
       con.drawImage(blImage,
         c*BLOCK_SIZE,0, BLOCK_SIZE,BLOCK_SIZE,
@@ -281,15 +281,15 @@ body::-webkit-scrollbar {
       con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
-      con.strokeRect(OFFSET_X-6,OFFSET_Y+34,SCREEN_W+12,SCREEN_H+12);
+      con.strokeRect(OFFSET_X-6,OFFSET_Y+39,SCREEN_W+12,SCREEN_H+12);
       con.strokeStyle="rgba(80,160,255,0.5)";
-      con.strokeRect(OFFSET_X-2,OFFSET_Y+38,SCREEN_W+4,SCREEN_H+4);
+      con.strokeRect(OFFSET_X-2,OFFSET_Y+43,SCREEN_W+4,SCREEN_H+4);
       con.fillStyle="rgba(0,0,0,0.4)";
-      con.fillRect(OFFSET_X,OFFSET_Y+40,SCREEN_W,SCREEN_H);
-      drawCircle( 40, 380, 35,"lightgreen");
-      drawCircle(140, 380, 35,"lightgreen");
-      drawCircle(240, 380, 35,"lightgreen");
-      drawCircle(240, 270, 35,"lightgreen");
+      con.fillRect(OFFSET_X,OFFSET_Y+45,SCREEN_W,SCREEN_H);
+      drawCircle( 40, 380, 25,"lightgreen");
+      drawCircle(140, 380, 25,"lightgreen");
+      drawCircle(240, 380, 25,"lightgreen");
+      drawCircle(240, 310, 25,"lightgreen");
       
       //フィールドを描画
       for (let y = 0; y < FIELD_ROW; y++)
@@ -323,7 +323,7 @@ body::-webkit-scrollbar {
           //ネクストテトロ
           if( TETRO_TYPES[tetro_n][y][x] )
           {
-            drawBlock(11+x, 3+y, tetro_n);
+            drawBlock(12+x, 3+y, tetro_n);
           }
         }
       }
@@ -337,20 +337,20 @@ body::-webkit-scrollbar {
       con.fillStyle="darkblue";
 
       let s="NEXT";
-      con.fillText(s,200,45);
+      con.fillText(s,200,105);
 
       s="SCORE";
-      con.fillText(s,190,130);
+      con.fillText(s,190,190);
       s=""+score;
       w = con.measureText(s).width;
-      con.fillText(s, 260-w, 155);
+      con.fillText(s, 260-w, 215);
 
       s="LINES";
       w = con.measureText(s).width;
-      con.fillText(s,190,190);
+      con.fillText(s,190,250);
       s=""+lines;
       w = con.measureText(s).width;
-      con.fillText(s, 260-w, 210);
+      con.fillText(s, 260-w, 270);
 
       // s="speed";
       // w = con.measureText(s).width;
@@ -368,8 +368,8 @@ body::-webkit-scrollbar {
       con.fillText("◎",130,375);
       con.fillText("Turn",115,395);
 
-      con.fillText("▽",230,265);
-      con.fillText("Drop",215,285);
+      con.fillText("▽",230,305);
+      con.fillText("Drop",215,325);
 
       //ゲームオーバー処理
       if (over)
@@ -573,7 +573,7 @@ body::-webkit-scrollbar {
               if(190 < mouseX && 330 < mouseY && 330 < mouseY) {
                 keyCode2 = 39;
               } else {
-                if (190 < mouseX && 310 > mouseY ) {
+                if (190 < mouseX && 340 > mouseY ) {
                   keyCode2 = 40;
                 } else {
                   if (90 < mouseX && mouseX < 180 && 330 < mouseY ) {
