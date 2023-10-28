@@ -79,7 +79,7 @@ body::-webkit-scrollbar {
 
     //フィールドサイズ
     const FIELD_COL = 10;
-    const FIELD_ROW = 20;
+    const FIELD_ROW = 18;
 
     //ブロック１つのサイズ（ピクセル）
     const BLOCK_SIZE = 16; // 20;
@@ -96,7 +96,7 @@ body::-webkit-scrollbar {
     let con = can.getContext("2d");
     can.width        = SCREEN_W+120;
     can.height       = SCREEN_H+120;
-    can.style.border = "4px solid #555";
+    // can.style.border = "4px solid #555";
     con.font = "bold 20px MS ゴシック";
 
     //マウス操作設定
@@ -281,11 +281,11 @@ body::-webkit-scrollbar {
       con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
-      con.strokeRect(OFFSET_X-6,OFFSET_Y-6,SCREEN_W+12,SCREEN_H+12);
+      con.strokeRect(OFFSET_X-6,OFFSET_Y+34,SCREEN_W+12,SCREEN_H+12);
       con.strokeStyle="rgba(80,160,255,0.5)";
-      con.strokeRect(OFFSET_X-2,OFFSET_Y-2,SCREEN_W+4,SCREEN_H+4);
+      con.strokeRect(OFFSET_X-2,OFFSET_Y+38,SCREEN_W+4,SCREEN_H+4);
       con.fillStyle="rgba(0,0,0,0.4)";
-      con.fillRect(OFFSET_X,OFFSET_Y,SCREEN_W,SCREEN_H);
+      con.fillRect(OFFSET_X,OFFSET_Y+40,SCREEN_W,SCREEN_H);
       drawCircle( 40, 380, 35,"lightgreen");
       drawCircle(140, 380, 35,"lightgreen");
       drawCircle(240, 380, 35,"lightgreen");
