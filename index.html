@@ -62,7 +62,7 @@
 
     //フィールドサイズ
     const FIELD_COL = 10;
-    const FIELD_ROW = 18;
+    const FIELD_ROW = 20;
 
     //ブロック１つのサイズ（ピクセル）
     const BLOCK_SIZE = 16; // 20;
@@ -251,7 +251,8 @@
     function drawBlock(x,y,c)
     {
       let px = OFFSET_X + x * BLOCK_SIZE;
-      let py = OFFSET_Y + y * BLOCK_SIZE + 48;
+      let py = OFFSET_Y + y * BLOCK_SIZE;
+      // let py = OFFSET_Y + y * BLOCK_SIZE + 48;
 
       con.drawImage(blImage,
         c*BLOCK_SIZE,0, BLOCK_SIZE,BLOCK_SIZE,
@@ -264,11 +265,11 @@
       con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
       con.strokeStyle="rgba(80,160,255,0.1)";
-      con.strokeRect(OFFSET_X-6,OFFSET_Y+39,SCREEN_W+12,SCREEN_H+12);
+      con.strokeRect(OFFSET_X-6,OFFSET_Y-9,SCREEN_W+12,SCREEN_H+12);
       con.strokeStyle="rgba(80,160,255,0.5)";
-      con.strokeRect(OFFSET_X-2,OFFSET_Y+43,SCREEN_W+4,SCREEN_H+4);
+      con.strokeRect(OFFSET_X-2,OFFSET_Y-5,SCREEN_W+4,SCREEN_H+4);
       con.fillStyle="rgba(0,0,0,0.4)";
-      con.fillRect(OFFSET_X,OFFSET_Y+45,SCREEN_W,SCREEN_H);
+      con.fillRect(OFFSET_X,OFFSET_Y-3,SCREEN_W,SCREEN_H);
       drawCircle( 40, 380, 25,"lightgreen");
       drawCircle(140, 380, 25,"lightgreen");
       drawCircle(240, 380, 25,"lightgreen");
