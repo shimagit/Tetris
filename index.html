@@ -7,8 +7,8 @@
   <style>
     #START {
       position: absolute;
-      left: 15px;
-      top: 100px;
+      left: 5px;
+      top: 190px;
     }
     #RETRY {
       position: absolute;
@@ -270,10 +270,10 @@
       con.strokeRect(OFFSET_X-2,OFFSET_Y-1,SCREEN_W+4,SCREEN_H+4);
       con.fillStyle="rgba(0,0,0,0.4)";
       con.fillRect(OFFSET_X,OFFSET_Y+1,SCREEN_W,SCREEN_H);
-      drawCircle( 40, 380, 25,"lightgreen");
-      drawCircle(140, 380, 25,"lightgreen");
-      drawCircle(240, 380, 25,"lightgreen");
-      drawCircle(240, 310, 25,"lightgreen");
+      drawCircle( 40, 380, 35,"lightgreen");
+      drawCircle(140, 380, 35,"lightgreen");
+      drawCircle(240, 380, 35,"lightgreen");
+      drawCircle(240, 290, 35,"lightgreen");
       
       //フィールドを描画
       for (let y = 0; y < FIELD_ROW; y++)
@@ -318,22 +318,29 @@
     function drawInfo()
     {
       let w;
+      con.lineWidth = 3;
       con.fillStyle="darkblue";
+      con.strokeStyle="white";
 
       let s="NEXT";
+      con.strokeText(s,200,55);
       con.fillText(s,200,55);
 
       s="SCORE";
+      con.strokeText(s,190,140);
       con.fillText(s,190,140);
       s=""+score;
       w = con.measureText(s).width;
+      con.strokeText(s, 260-w, 165);
       con.fillText(s, 260-w, 165);
 
       s="LINES";
       w = con.measureText(s).width;
+      con.strokeText(s,190,200);
       con.fillText(s,190,200);
       s=""+lines;
       w = con.measureText(s).width;
+      con.strokeText(s, 260-w, 220);
       con.fillText(s, 260-w, 220);
 
       // s="speed";
@@ -352,8 +359,8 @@
       con.fillText("◎",130,375);
       con.fillText("Turn",115,395);
 
-      con.fillText("▽",230,305);
-      con.fillText("Drop",215,325);
+      con.fillText("▽",230,285);
+      con.fillText("Drop",215,305);
 
       //ゲームオーバー処理
       if (over)
@@ -366,8 +373,9 @@
         let x = SCREEN_W/2 - w/2;
         let y = SCREEN_H/2 - 40;
         con.lineWidth = 4;
-        con.strokeText(s,OFFSET_X+x,y);
+        con.strokeStyle="red";
         con.fillStyle="white";
+        con.strokeText(s,OFFSET_X+x,y);
         con.fillText(s,OFFSET_X+x,y); 
         GAME_SPEED = 500;
         cycleCountMax = 100;
@@ -545,7 +553,7 @@
       e.preventDefault() ;
         var mouseX = !isNaN(e.offsetX) ? e.offsetX : e.touches[0].clientX;
         var mouseY = !isNaN(e.offsetY) ? e.offsetY : e.touches[0].clientY;
-        console.log(mouseX);
+        console.log(mouseY);
 
       if (over) return;
         e.preventDefault() ;
@@ -557,7 +565,7 @@
               if(190 < mouseX && 330 < mouseY && 330 < mouseY) {
                 keyCode2 = 39;
               } else {
-                if (190 < mouseX && 340 > mouseY ) {
+                if (190 < mouseX && 320 > mouseY ) {
                   keyCode2 = 40;
                 } else {
                   if (90 < mouseX && mouseX < 180 && 330 < mouseY ) {
