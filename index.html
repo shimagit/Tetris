@@ -17,31 +17,9 @@
       display: none;
     }
     body{
-  margin: 0;
-  padding: 0;
-}
-
-/* 全画面表示CSS */
-
-    /* p {
-    color:red;
-    }
-    document.body.requestFullscreen();
-    @media screen and (min-width:580px) {  */
-        /*　画面サイズが480pxからはここを読み込む　*/
-				/* document.exitFullscreen(); */
-
-    /* p { color:#ededed;}
-    }
-    @media screen and (min-width:768px) and ( max-width:1024px) {
-        　画面サイズが768pxから1024pxまではここを読み込む　
-    p {}
-    }
-    @media screen and (min-width:1024px) {
-        /*　画面サイズが1024pxからはここを読み込む　*/
-/*     
-    /* } */
-
+      margin: 0;
+      padding: 0;
+    } 
   </style>
 </head>
 <body>
@@ -49,7 +27,6 @@
   <canvas id = "can"></canvas>
   <img id="START" src="start.png" onclick="startGame()"><br/>
   <img id="RETRY" src="retry02.png" onclick="startGame()"><br/>
-  <!-- <img id="BGIMG" src="bgimage.jpeg" onclick="startGame()"><br/> -->
   <script>
 
     //`音量設定
@@ -190,10 +167,8 @@
 
     window.onload = function()
     {
-      // con.drawImage(bgimage,-20,0,350,580);
       drawScreen();
       drawInfo();
-      //init();
     }
 
     //イニシャライズでスタート
@@ -248,7 +223,6 @@
       tetro_t = tetro_n;
       tetro = TETRO_TYPES[tetro_t];
       tetro_n = Math.floor( Math.random()*(TETRO_TYPES.length-1))+1;
-      // tetro_n = 5;
 
       //位置を初期値にする
       tetro_x = START_X;
@@ -288,19 +262,6 @@
     function drawAll()
     {
       drawScreen();
-      // con.drawImage(bgimage,-20,0,350,580);
-      // //フィールドの枠を描く
-      // con.strokeStyle="rgba(80,160,255,0.1)";
-      // con.strokeRect(OFFSET_X-6,OFFSET_Y-5,SCREEN_W+12,SCREEN_H+12);
-      // con.strokeStyle="rgba(80,160,255,0.5)";
-      // con.strokeRect(OFFSET_X-2,OFFSET_Y-1,SCREEN_W+4,SCREEN_H+4);
-      // con.fillStyle="rgba(0,0,0,0.4)";
-      // con.fillRect(OFFSET_X,OFFSET_Y+1,SCREEN_W,SCREEN_H);
-      // drawCircle( 40, 380, 35,"lightgreen");
-      // drawCircle(140, 380, 35,"lightgreen");
-      // drawCircle(240, 380, 35,"lightgreen");
-      // drawCircle(240, 290, 35,"lightgreen");
-      
       //フィールドを描画
       for (let y = 0; y < FIELD_ROW; y++)
       {
@@ -369,13 +330,6 @@
       w = con.measureText(s).width;
       con.strokeText(s, 260-w, 220);
       con.fillText(s, 260-w, 220);
-
-      // s="speed";
-      // w = con.measureText(s).width;
-      // con.fillText(s,230,260);
-      // s=""+cycleCountMax;
-      // w = con.measureText(s).width;
-      // con.fillText(s, 300-w, 280);
 
       con.fillText("<<",28,375);
       con.fillText("Left",18,395);
