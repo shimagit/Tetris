@@ -188,6 +188,14 @@
     const OFFSET_X = 10;//(640-300)/2;
     const OFFSET_Y = 10;
 
+    window.onload = function()
+    {
+      // con.drawImage(bgimage,-20,0,350,580);
+      drawScreen();
+      drawInfo();
+      //init();
+    }
+
     //イニシャライズでスタート
     function startGame(){
       init();
@@ -199,7 +207,7 @@
       setInterval(dropTetro,GAME_SPEED);
     }
     
-    init();
+    // init();
 
     if(over){
       se4.pause();
@@ -260,7 +268,7 @@
     }
 
     //全部描画する
-    function drawAll()
+    function drawScreen()
     {
       con.drawImage(bgimage,-20,0,350,580);
       //フィールドの枠を描く
@@ -274,6 +282,24 @@
       drawCircle(140, 380, 35,"lightgreen");
       drawCircle(240, 380, 35,"lightgreen");
       drawCircle(240, 290, 35,"lightgreen");
+    }
+
+    //全部描画する
+    function drawAll()
+    {
+      drawScreen();
+      // con.drawImage(bgimage,-20,0,350,580);
+      // //フィールドの枠を描く
+      // con.strokeStyle="rgba(80,160,255,0.1)";
+      // con.strokeRect(OFFSET_X-6,OFFSET_Y-5,SCREEN_W+12,SCREEN_H+12);
+      // con.strokeStyle="rgba(80,160,255,0.5)";
+      // con.strokeRect(OFFSET_X-2,OFFSET_Y-1,SCREEN_W+4,SCREEN_H+4);
+      // con.fillStyle="rgba(0,0,0,0.4)";
+      // con.fillRect(OFFSET_X,OFFSET_Y+1,SCREEN_W,SCREEN_H);
+      // drawCircle( 40, 380, 35,"lightgreen");
+      // drawCircle(140, 380, 35,"lightgreen");
+      // drawCircle(240, 380, 35,"lightgreen");
+      // drawCircle(240, 290, 35,"lightgreen");
       
       //フィールドを描画
       for (let y = 0; y < FIELD_ROW; y++)
@@ -313,6 +339,7 @@
       }
       drawInfo();
     }
+  
 
     //インフォメーション表示
     function drawInfo()
